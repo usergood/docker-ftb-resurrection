@@ -10,6 +10,13 @@ WORKDIR /minecraft
 USER minecraft
 EXPOSE 25565
 
+ENV FTB_RESURRECTION_URL http://new.creeperrepo.net/FTB2/modpacks/FTBResurrection/1.0.1/FTBResurrectionServer.zip
+ENV LAUNCHWRAPPER net/minecraft/launchwrapper/1.11/launchwrapper-1.11.jar
+ENV MINECRAFT_HOME /minecraft
+ENV MINECRAFT_VERSION 1.7.10
+ENV MINECRAFT_OPTS -server -Xms1048m -Xmx6072m -XX:MaxPermSize=256m -XX:+UseParNewGC -XX:+UseConcMarkSweepGC
+ENV MINECRAFT_STARTUP_JAR FTBServer-1.7.10-1291.jar
+
 RUN apt-get update
 RUN apt-get upgrade -y
 
@@ -23,10 +30,19 @@ RUN apt-get install -y oracle-java8-installer
 
 RUN useradd -s /bin/bash -d /minecraft -m minecraft
 
-ADD http://new.creeperrepo.net/FTB2/modpacks/FTBResurrection/1.0.1/FTBResurrectionServer.zip /minecraft/resurrection.zip
-
+#ADD http://new.creeperrepo.net/FTB2/modpacks/FTBResurrection/1.0.1/FTBResurrectionServer.zip /minecraft/resurrection.zip
 RUN apt-get install zip -y
-RUN cd /minecraft && unzip resurrection.zip && rm resurrection.zip
+RUN apt-get install curl -y
+
+RUN \
+    curl -S $FTB_RESURRECTION_URL -o /tmp/infinity.zip && \
+    unzip /tmp/infinity.zip -d $MINECRAFT_HOME && \
+    mkdir -p $MINECRAFT_HOME/libraries && \
+    curl -S https://libraries.minecraft.net/$LAUNCHWRAPPER -o $MINECRAFT_HOME/libraries/$LAUNCHWRAPPER && \
+    find $MINECRAFT_HOME -name "*.log" -exec rm -f {} \; && \
+    rm -rf $MINECRAFT_HOME/ops.* $MINECRAFT_HOME/whitelist.* $MINECRAFT_HOME/logs/* /tmp/*
+    
+#RUN cd /minecraft && unzip resurrection.zip && rm resurrection.zip
 RUN echo "eula=true" > /minecraft/eula.txt
 RUN chown -R minecraft:minecraft /minecraft
 
