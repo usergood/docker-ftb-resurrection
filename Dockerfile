@@ -23,7 +23,7 @@ RUN apt-get install -y oracle-java8-installer
 
 RUN useradd -s /bin/bash -d /minecraft -m minecraft
 
-ADD http://www.feed-the-beast.com/projects/ftb-resurrection/files/2226937/download /minecraft/resurrection.zip
+ADD http://new.creeperrepo.net/FTB2/modpacks/FTBResurrection/1.0.1/FTBResurrectionServer.zip /minecraft/resurrection.zip
 
 RUN apt-get install zip -y
 RUN cd /minecraft && unzip resurrection.zip && rm resurrection.zip
