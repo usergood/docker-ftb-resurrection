@@ -20,6 +20,8 @@ ENV MINECRAFT_STARTUP_JAR FTBServer-1.7.10-1291.jar
 RUN apt-get update
 RUN apt-get upgrade -y
 
+RUN useradd -s /bin/bash -d /minecraft -m minecraft
+
 RUN apt-get install software-properties-common -y
 
 RUN add-apt-repository ppa:webupd8team/java -y
@@ -27,8 +29,6 @@ RUN apt-get update
 
 RUN echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections
 RUN apt-get install -y oracle-java8-installer
-
-RUN useradd -s /bin/bash -d /minecraft -m minecraft
 
 #ADD http://new.creeperrepo.net/FTB2/modpacks/FTBResurrection/1.0.1/FTBResurrectionServer.zip /minecraft/resurrection.zip
 RUN apt-get install zip -y
