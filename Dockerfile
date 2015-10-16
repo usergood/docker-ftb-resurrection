@@ -5,9 +5,6 @@ MAINTAINER kurri@glappet.com
 CMD ["/sbin/my_init"]
 
 # ...put your own build instructions here...
-VOLUME /minecraft
-WORKDIR /minecraft
-USER minecraft
 EXPOSE 25565
 
 ENV FTB_RESURRECTION_URL http://new.creeperrepo.net/FTB2/modpacks/FTBResurrection/1.0.1/FTBResurrectionServer.zip
@@ -33,6 +30,10 @@ RUN apt-get install -y oracle-java8-installer
 #ADD http://new.creeperrepo.net/FTB2/modpacks/FTBResurrection/1.0.1/FTBResurrectionServer.zip /minecraft/resurrection.zip
 RUN apt-get install zip -y
 RUN apt-get install curl -y
+
+VOLUME /minecraft
+WORKDIR /minecraft
+USER minecraft
 
 RUN \
     curl -S $FTB_RESURRECTION_URL -o /tmp/infinity.zip && \
