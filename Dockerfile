@@ -14,6 +14,6 @@ RUN \
 
 ENV MINECRAFT_VERSION 1.7.10
 ENV MINECRAFT_OPTS -server -Xms1048m -Xmx6072m -XX:MaxPermSize=256m -XX:+UseParNewGC -XX:+UseConcMarkSweepGC
-ENV MINECRAFT_STARTUP_JAR FTBServer-1.7.10-1291.jar
+ENV MINECRAFT_STARTUP_JAR FTBServer-1.7.10.jar
 
 VOLUME ["/opt/minecraft", "/var/lib/minecraft"]
