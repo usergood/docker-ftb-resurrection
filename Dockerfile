@@ -13,6 +13,9 @@ RUN \
     find $MINECRAFT_HOME -name "*.log" -exec rm -f {} \; && \
     rm -rf $MINECRAFT_HOME/ops.* $MINECRAFT_HOME/whitelist.* $MINECRAFT_HOME/logs/* /tmp/*
 
+COPY config/AromaBackup.cfg.txt /opt/minecraft/config/aroma1997/
+COPY config/chisel.cfg.txt /opt/minecraft/config/
+
 ENV MINECRAFT_VERSION 1.7.10
 ENV MINECRAFT_OPTS -server -Xms1048m -Xmx6072m -XX:MaxPermSize=256m -XX:+UseParNewGC -XX:+UseConcMarkSweepGC
 ENV MINECRAFT_STARTUP_JAR FTBServer-1.7.10-1291.jar
